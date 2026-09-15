@@ -3,9 +3,14 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { api } from '../api/client';
 import { NotificationItem } from '../types';
-import { Shield, Bell, LogOut, User, Sparkles, CheckCircle2, ChevronDown } from 'lucide-react';
+import { Shield, Bell, LogOut, User, Sparkles, CheckCircle2, ChevronDown, Menu, X } from 'lucide-react';
 
-export const Navbar: React.FC = () => {
+interface NavbarProps {
+  isMobileSidebarOpen?: boolean;
+  onToggleMobileSidebar?: () => void;
+}
+
+export const Navbar: React.FC<NavbarProps> = ({ isMobileSidebarOpen, onToggleMobileSidebar }) => {
   const { user, isAuthenticated, logout, isAdmin } = useAuth();
   const navigate = useNavigate();
   const [notifications, setNotifications] = useState<NotificationItem[]>([]);
@@ -32,8 +37,20 @@ export const Navbar: React.FC = () => {
   };
 
   return (
-    <header className="glass-nav" style={{ position: 'sticky', top: 0, zIndex: 50, height: '4rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 1.5rem' }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '2rem' }}>
+    <header className="glass-nav" style={{ position: 'sticky', top: 0, zIndex: 50, height: '4rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 1rem' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+        {/* Mobile Hamburger Menu Toggle Button */}
+        {isAuthenticated && (
+          <button
+            onClick={onToggleMobileSidebar}
+            className="btn btn-secondary mobile-menu-btn"
+            style={{ padding: '0.45rem', borderRadius: 'var(--radius-md)', display: 'none', alignItems: 'center', justifyContent: 'center' }}
+            aria-label="Toggle navigation menu"
+          >
+            {isMobileSidebarOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
+        )}
+
         <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', textDecoration: 'none' }}>
           <div style={{
             width: '2.25rem',
@@ -43,7 +60,8 @@ export const Navbar: React.FC = () => {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            boxShadow: '0 0 15px rgba(99, 102, 241, 0.4)'
+            boxShadow: '0 0 15px rgba(99, 102, 241, 0.4)',
+            flexShrink: 0
           }}>
             <Shield size={20} color="#ffffff" />
           </div>
@@ -51,14 +69,14 @@ export const Navbar: React.FC = () => {
             <span style={{ fontSize: '1.25rem', fontWeight: 800, letterSpacing: '-0.03em', color: '#ffffff', fontFamily: 'Outfit' }}>
               PROCURE<span style={{ color: '#06b6d4' }}>PILOT</span>
             </span>
-            <span style={{ display: 'block', fontSize: '0.65rem', color: '#94a3b8', letterSpacing: '0.08em', textTransform: 'uppercase', marginTop: '-0.2rem' }}>
+            <span className="nav-logo-sub" style={{ display: 'block', fontSize: '0.65rem', color: '#94a3b8', letterSpacing: '0.08em', textTransform: 'uppercase', marginTop: '-0.2rem' }}>
               Procurement Intelligence
             </span>
           </div>
         </Link>
       </div>
 
-      <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
         {isAuthenticated ? (
           <>
             {/* Notification Bell */}
@@ -97,12 +115,14 @@ export const Navbar: React.FC = () => {
                   right: 0,
                   top: '2.75rem',
                   width: '320px',
-                  maxHeight: '400px',
+                  maxWidth: 'calc(100vw - 2rem)',
+                  maxHeight: '380px',
                   overflowY: 'auto',
                   padding: '1rem',
                   zIndex: 60,
                   background: '#0f172a',
                   border: '1px solid rgba(255, 255, 255, 0.15)',
+                  boxShadow: '0 10px 30px rgba(0,0,0,0.7)'
                 }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem', borderBottom: '1px solid var(--border-subtle)', paddingBottom: '0.5rem' }}>
                     <h4 style={{ fontSize: '0.875rem' }}>Notifications</h4>
@@ -145,7 +165,7 @@ export const Navbar: React.FC = () => {
               <button
                 onClick={() => setShowUserMenu(!showUserMenu)}
                 className="btn btn-secondary"
-                style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.4rem 0.75rem' }}
+                style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', padding: '0.35rem 0.65rem' }}
               >
                 <div style={{
                   width: '1.75rem',
@@ -156,11 +176,12 @@ export const Navbar: React.FC = () => {
                   alignItems: 'center',
                   justifyContent: 'center',
                   fontSize: '0.75rem',
-                  fontWeight: 700
+                  fontWeight: 700,
+                  flexShrink: 0
                 }}>
-                  {user?.fullName.charAt(0)}
+                  {user?.fullName ? user.fullName.charAt(0) : 'U'}
                 </div>
-                <span style={{ fontSize: '0.8125rem', maxWidth: '120px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                <span className="nav-user-name" style={{ fontSize: '0.8125rem', maxWidth: '110px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                   {user?.fullName}
                 </span>
                 <ChevronDown size={14} color="var(--text-muted)" />
@@ -171,11 +192,13 @@ export const Navbar: React.FC = () => {
                   position: 'absolute',
                   right: 0,
                   top: '2.75rem',
-                  width: '200px',
+                  width: '220px',
+                  maxWidth: 'calc(100vw - 2rem)',
                   padding: '0.5rem',
                   zIndex: 60,
                   background: '#0f172a',
                   border: '1px solid rgba(255, 255, 255, 0.15)',
+                  boxShadow: '0 10px 30px rgba(0,0,0,0.7)'
                 }}>
                   <div style={{ padding: '0.5rem', borderBottom: '1px solid var(--border-subtle)', marginBottom: '0.5rem' }}>
                     <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Signed in as</p>
@@ -230,9 +253,9 @@ export const Navbar: React.FC = () => {
             </div>
           </>
         ) : (
-          <div style={{ display: 'flex', gap: '0.75rem' }}>
-            <Link to="/login" className="btn btn-secondary">Log In</Link>
-            <Link to="/register" className="btn btn-primary">Start Free Onboarding</Link>
+          <div style={{ display: 'flex', gap: '0.5rem' }}>
+            <Link to="/login" className="btn btn-secondary" style={{ fontSize: '0.8rem', padding: '0.4rem 0.8rem' }}>Log In</Link>
+            <Link to="/register" className="btn btn-primary" style={{ fontSize: '0.8rem', padding: '0.4rem 0.8rem' }}>Get Started</Link>
           </div>
         )}
       </div>

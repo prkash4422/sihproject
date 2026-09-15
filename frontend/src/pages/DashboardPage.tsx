@@ -49,10 +49,10 @@ export const DashboardPage: React.FC = () => {
     : 0;
 
   return (
-    <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '1.5rem 1rem', display: 'flex', flexDirection: 'column', gap: '1.75rem' }}>
+    <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0.5rem 0', display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
       {/* Hero Welcome Banner */}
       <div className="glass-panel" style={{
-        padding: '2rem',
+        padding: '1.5rem',
         background: 'linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%)',
         position: 'relative',
         overflow: 'hidden'
@@ -74,7 +74,7 @@ export const DashboardPage: React.FC = () => {
               <Sparkles size={16} />
               DPIIT Startup Intelligence Portal
             </div>
-            <h1 style={{ fontSize: '1.75rem', fontWeight: 800, marginTop: '0.25rem' }}>
+            <h1 style={{ fontSize: '1.5rem', fontWeight: 800, marginTop: '0.25rem' }}>
               Welcome back, {user?.fullName || 'Founder'}
             </h1>
             <p style={{ color: 'var(--text-secondary)', fontSize: '0.875rem', marginTop: '0.25rem', maxWidth: '600px' }}>
@@ -84,7 +84,7 @@ export const DashboardPage: React.FC = () => {
           </div>
 
           <div style={{ display: 'flex', gap: '0.75rem' }}>
-            <Link to="/tenders" className="btn btn-primary">
+            <Link to="/tenders" className="btn btn-primary" style={{ padding: '0.5rem 1rem', fontSize: '0.85rem' }}>
               Discover Tenders <ArrowRight size={16} />
             </Link>
           </div>
@@ -93,60 +93,60 @@ export const DashboardPage: React.FC = () => {
         {/* Readiness Metric Ribbon */}
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))',
           gap: '1rem',
-          marginTop: '1.75rem',
-          paddingTop: '1.5rem',
+          marginTop: '1.5rem',
+          paddingTop: '1.25rem',
           borderTop: '1px solid var(--border-subtle)'
         }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-            <div style={{ width: '2.75rem', height: '2.75rem', borderRadius: 'var(--radius-md)', background: 'rgba(99, 102, 241, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#818cf8' }}>
-              <TrendingUp size={22} />
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+            <div style={{ width: '2.5rem', height: '2.5rem', borderRadius: 'var(--radius-md)', background: 'rgba(99, 102, 241, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#818cf8', flexShrink: 0 }}>
+              <TrendingUp size={20} />
             </div>
             <div>
-              <div style={{ fontSize: '1.25rem', fontWeight: 800, color: maxMatchScore >= 75 ? '#34d399' : (maxMatchScore >= 50 ? '#fbbf24' : '#fb7185') }}>
+              <div style={{ fontSize: '1.15rem', fontWeight: 800, color: maxMatchScore >= 75 ? '#34d399' : (maxMatchScore >= 50 ? '#fbbf24' : '#fb7185') }}>
                 {maxMatchScore}% Match
               </div>
-              <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Top Opportunity Fit</div>
+              <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>Top Opportunity Fit</div>
             </div>
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-            <div style={{ width: '2.75rem', height: '2.75rem', borderRadius: 'var(--radius-md)', background: 'rgba(245, 158, 11, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fbbf24' }}>
-              <Clock size={22} />
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+            <div style={{ width: '2.5rem', height: '2.5rem', borderRadius: 'var(--radius-md)', background: 'rgba(245, 158, 11, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fbbf24', flexShrink: 0 }}>
+              <Clock size={20} />
             </div>
             <div>
-              <div style={{ fontSize: '1.25rem', fontWeight: 800 }}>{urgentDeadlines.length} Tenders</div>
-              <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Closing in &lt;14 Days</div>
+              <div style={{ fontSize: '1.15rem', fontWeight: 800 }}>{urgentDeadlines.length} Tenders</div>
+              <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>Closing in &lt;14 Days</div>
             </div>
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-            <div style={{ width: '2.75rem', height: '2.75rem', borderRadius: 'var(--radius-md)', background: 'rgba(16, 185, 129, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#34d399' }}>
-              <ShieldCheck size={22} />
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+            <div style={{ width: '2.5rem', height: '2.5rem', borderRadius: 'var(--radius-md)', background: 'rgba(16, 185, 129, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#34d399', flexShrink: 0 }}>
+              <ShieldCheck size={20} />
             </div>
             <div>
-              <div style={{ fontSize: '1.25rem', fontWeight: 800, color: '#34d399' }}>GFR 161(iv)</div>
-              <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Exemption Status Active</div>
+              <div style={{ fontSize: '1.15rem', fontWeight: 800, color: '#34d399' }}>GFR 161(iv)</div>
+              <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>Exemption Active</div>
             </div>
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-            <div style={{ width: '2.75rem', height: '2.75rem', borderRadius: 'var(--radius-md)', background: 'rgba(6, 182, 212, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#38bdf8' }}>
-              <FileCheck2 size={22} />
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+            <div style={{ width: '2.5rem', height: '2.5rem', borderRadius: 'var(--radius-md)', background: 'rgba(6, 182, 212, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#38bdf8', flexShrink: 0 }}>
+              <FileCheck2 size={20} />
             </div>
             <div>
-              <div style={{ fontSize: '1.25rem', fontWeight: 800, color: avgReadiness >= 75 ? '#34d399' : (avgReadiness >= 50 ? '#fbbf24' : '#fb7185') }}>
+              <div style={{ fontSize: '1.15rem', fontWeight: 800, color: avgReadiness >= 75 ? '#34d399' : (avgReadiness >= 50 ? '#fbbf24' : '#fb7185') }}>
                 {avgReadiness}% Readiness
               </div>
-              <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Compliance Vault Avg</div>
+              <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>Compliance Vault Avg</div>
             </div>
           </div>
         </div>
       </div>
 
       {/* Grid: High-Fit Recommended Opportunities & Urgent Actions */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: '1.5rem' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.25rem' }}>
         {/* Recommended High-Fit Tenders */}
         <div className="glass-panel" style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>

@@ -1,5 +1,5 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { DisclaimerBanner } from './components/DisclaimerBanner';
 import { Navbar } from './components/Navbar';
@@ -32,13 +32,36 @@ const AdminRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 
 const AppLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { isAuthenticated } = useAuth();
+  const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
+  const location = useLocation();
+
+  useEffect(() => {
+    setMobileSidebarOpen(false);
+  }, [location.pathname]);
+
   return (
-    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+    <div className="app-container">
       <DisclaimerBanner />
-      <Navbar />
-      <div style={{ display: 'flex', flex: 1 }}>
-        {isAuthenticated && <Sidebar />}
-        <main style={{ flex: 1, padding: '1rem', overflowX: 'hidden' }}>
+      <Navbar
+        isMobileSidebarOpen={mobileSidebarOpen}
+        onToggleMobileSidebar={() => setMobileSidebarOpen(!mobileSidebarOpen)}
+      />
+      <div className="app-body">
+        {isAuthenticated && (
+          <>
+            <Sidebar
+              isMobileOpen={mobileSidebarOpen}
+              onClose={() => setMobileSidebarOpen(false)}
+            />
+            {mobileSidebarOpen && (
+              <div
+                className="sidebar-backdrop"
+                onClick={() => setMobileSidebarOpen(false)}
+              />
+            )}
+          </>
+        )}
+        <main className="main-content">
           {children}
         </main>
       </div>

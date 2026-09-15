@@ -67,11 +67,11 @@ export const TenderDiscoveryPage: React.FC = () => {
 
         {/* Search & Filter Controls */}
         <form onSubmit={handleSearchSubmit} style={{ display: 'flex', gap: '0.75rem', marginTop: '1.25rem', flexWrap: 'wrap' }}>
-          <div style={{ flex: '1 1 300px', position: 'relative' }}>
+          <div style={{ flex: '1 1 240px', position: 'relative' }}>
             <input
               type="text"
               className="form-input"
-              placeholder="Search by keywords, tender ID, department or AI specs..."
+              placeholder="Search by keywords, tender ID, department..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               style={{ paddingLeft: '2.5rem' }}
@@ -83,7 +83,7 @@ export const TenderDiscoveryPage: React.FC = () => {
             className="form-input"
             value={selectedCategory}
             onChange={(e) => setSelectedCategory(e.target.value)}
-            style={{ width: '220px' }}
+            style={{ flex: '1 1 200px', minWidth: '180px' }}
           >
             <option value="">All Categories</option>
             <option value="Defence & Surveillance AI">Defence & Surveillance AI</option>
