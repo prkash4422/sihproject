@@ -1,0 +1,32 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /
+
+spring:
+  application:
+    name: procurepilot-backend
+  profiles:
+    active: dev
+  flyway:
+    enabled: false
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+
+procurepilot:
+  jwt:
+    secret: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
+    expiration-ms: 86400000 # 24 hours
+  cors:
+    allowed-origins: "http://localhost:5173,http://localhost:3000,http://127.0.0.1:5173"
+  ai-service:
+    url: "http://localhost:8000"
+  upload:
+    dir: "./uploads"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
