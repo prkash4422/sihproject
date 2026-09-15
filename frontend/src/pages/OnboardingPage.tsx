@@ -131,17 +131,17 @@ export const OnboardingPage: React.FC = () => {
   };
 
   return (
-    <div style={{ maxWidth: '960px', margin: '2rem auto', padding: '0 1rem' }}>
+    <div style={{ maxWidth: '960px', margin: '0 auto', padding: '0.5rem 0', width: '100%' }}>
       {/* Step Indicator Header */}
-      <div className="glass-panel" style={{ padding: '1.25rem', marginBottom: '1.5rem' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+      <div className="glass-panel" style={{ padding: '1.25rem', marginBottom: '1.25rem', width: '100%' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem', flexWrap: 'wrap', gap: '0.5rem' }}>
           <div>
             <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#06b6d4', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
               STEP {currentStep} OF 12
             </span>
             <h2 style={{ fontSize: '1.25rem', fontWeight: 800 }}>{STEPS[currentStep - 1].title}</h2>
           </div>
-          <button onClick={handleSaveAndResume} className="btn btn-secondary" style={{ fontSize: '0.75rem' }}>
+          <button onClick={handleSaveAndResume} className="btn btn-secondary" style={{ fontSize: '0.75rem', padding: '0.4rem 0.75rem' }}>
             Save & Resume Later
           </button>
         </div>
@@ -164,7 +164,7 @@ export const OnboardingPage: React.FC = () => {
       </div>
 
       {/* Main Form Content Card */}
-      <div className="glass-panel" style={{ padding: '2rem', minHeight: '400px', display: 'flex', flexDirection: 'column' }}>
+      <div className="glass-panel" style={{ padding: '1.25rem', minHeight: '380px', display: 'flex', flexDirection: 'column', width: '100%' }}>
         {/* Step 1: Basics */}
         {currentStep === 1 && (
           <div className="animate-fade-in" style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
@@ -307,7 +307,7 @@ export const OnboardingPage: React.FC = () => {
               Add specific technical capabilities. The matching engine compares these against tender technical specifications.
             </p>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr 1fr auto', gap: '0.5rem', alignItems: 'flex-end' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 150px), 1fr))', gap: '0.75rem', alignItems: 'flex-end' }}>
               <div>
                 <label className="form-label">Category</label>
                 <input
@@ -340,7 +340,7 @@ export const OnboardingPage: React.FC = () => {
                   <option value="EXPERT">EXPERT</option>
                 </select>
               </div>
-              <button type="button" onClick={handleAddCapability} className="btn btn-primary" style={{ padding: '0.625rem 0.875rem' }}>
+              <button type="button" onClick={handleAddCapability} className="btn btn-primary" style={{ padding: '0.625rem 0.875rem', height: '2.5rem' }}>
                 <Plus size={16} /> Add
               </button>
             </div>
@@ -354,15 +354,16 @@ export const OnboardingPage: React.FC = () => {
                   padding: '0.75rem',
                   borderRadius: 'var(--radius-sm)',
                   background: 'rgba(255, 255, 255, 0.03)',
-                  border: '1px solid var(--border-subtle)'
+                  border: '1px solid var(--border-subtle)',
+                  gap: '0.5rem'
                 }}>
-                  <div>
-                    <strong style={{ fontSize: '0.875rem' }}>{cap.name}</strong>
+                  <div style={{ minWidth: 0, flex: 1 }}>
+                    <strong style={{ fontSize: '0.875rem', display: 'block' }} className="text-break">{cap.name}</strong>
                     <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
                       {cap.category} • <span style={{ color: '#06b6d4' }}>{cap.proficiencyLevel}</span>
                     </div>
                   </div>
-                  <button onClick={() => handleRemoveCapability(idx)} className="btn btn-secondary" style={{ padding: '0.35rem', color: '#fb7185' }}>
+                  <button onClick={() => handleRemoveCapability(idx)} className="btn btn-secondary" style={{ padding: '0.35rem', color: '#fb7185', flexShrink: 0 }}>
                     <Trash2 size={14} />
                   </button>
                 </div>
@@ -426,7 +427,7 @@ export const OnboardingPage: React.FC = () => {
               Add ISO, CMMI, BIS or statutory quality certifications.
             </p>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '2fr 2fr 2fr auto', gap: '0.5rem', alignItems: 'flex-end' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 150px), 1fr))', gap: '0.75rem', alignItems: 'flex-end' }}>
               <div>
                 <label className="form-label">Certification Type</label>
                 <input
@@ -457,7 +458,7 @@ export const OnboardingPage: React.FC = () => {
                   onChange={(e) => setNewCert({ ...newCert, issuingBody: e.target.value })}
                 />
               </div>
-              <button type="button" onClick={handleAddCert} className="btn btn-primary" style={{ padding: '0.625rem 0.875rem' }}>
+              <button type="button" onClick={handleAddCert} className="btn btn-primary" style={{ padding: '0.625rem 0.875rem', height: '2.5rem' }}>
                 <Plus size={16} /> Add
               </button>
             </div>
@@ -471,15 +472,16 @@ export const OnboardingPage: React.FC = () => {
                   padding: '0.75rem',
                   borderRadius: 'var(--radius-sm)',
                   background: 'rgba(255, 255, 255, 0.03)',
-                  border: '1px solid var(--border-subtle)'
+                  border: '1px solid var(--border-subtle)',
+                  gap: '0.5rem'
                 }}>
-                  <div>
-                    <strong style={{ fontSize: '0.875rem' }}>{cert.certType}</strong>
-                    <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
+                  <div style={{ minWidth: 0, flex: 1 }}>
+                    <strong style={{ fontSize: '0.875rem', display: 'block' }} className="text-break">{cert.certType}</strong>
+                    <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }} className="text-break">
                       Issued by: {cert.issuingBody || 'Accredited Registrar'} • No: {cert.certNumber || 'N/A'}
                     </div>
                   </div>
-                  <button onClick={() => handleRemoveCert(idx)} className="btn btn-secondary" style={{ padding: '0.35rem', color: '#fb7185' }}>
+                  <button onClick={() => handleRemoveCert(idx)} className="btn btn-secondary" style={{ padding: '0.35rem', color: '#fb7185', flexShrink: 0 }}>
                     <Trash2 size={14} />
                   </button>
                 </div>

@@ -80,30 +80,30 @@ export const ProfilePage: React.FC = () => {
   }
 
   return (
-    <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '1.5rem 1rem', display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+    <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '0.5rem 0', display: 'flex', flexDirection: 'column', gap: '1.25rem', width: '100%' }}>
       {/* Header Profile Card */}
-      <div className="glass-panel" style={{ padding: '2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1rem' }}>
+      <div className="glass-panel" style={{ padding: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1rem' }}>
         <div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
             <span className="badge badge-info">{profile.primarySector}</span>
             {profile.dpiitRecognized && (
               <span className="badge badge-pass">
-                <Sparkles size={12} /> DPIIT RECOGNIZED STARTUP ({profile.dpiitNumber})
+                <Sparkles size={12} /> DPIIT RECOGNIZED ({profile.dpiitNumber})
               </span>
             )}
           </div>
-          <h1 style={{ fontSize: '1.75rem', fontWeight: 800, marginTop: '0.5rem' }}>
+          <h1 style={{ fontSize: '1.5rem', fontWeight: 800, marginTop: '0.5rem' }}>
             {profile.companyName}
           </h1>
-          <p style={{ color: 'var(--text-secondary)', fontSize: '0.875rem', marginTop: '0.2rem' }}>
+          <p style={{ color: 'var(--text-secondary)', fontSize: '0.85rem', marginTop: '0.2rem' }}>
             {profile.legalName || profile.companyName} • {profile.city}, {profile.state}
           </p>
         </div>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.5rem' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))', gap: '1.25rem', width: '100%' }}>
         {/* Capability Fingerprint */}
-        <div className="glass-panel" style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+        <div className="glass-panel" style={{ padding: '1.25rem', display: 'flex', flexDirection: 'column', gap: '1rem', width: '100%' }}>
           <h3 style={{ fontSize: '1.1rem', fontWeight: 700 }}>Capability & Sector Fingerprint</h3>
           <p style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>
             Fingerprint keywords extracted for automated procurement matchmaking.
@@ -112,8 +112,8 @@ export const ProfilePage: React.FC = () => {
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
             {profile.capabilities?.map((cap, idx) => (
               <div key={idx} style={{ padding: '0.75rem', borderRadius: 'var(--radius-sm)', background: 'rgba(255, 255, 255, 0.02)', border: '1px solid var(--border-subtle)' }}>
-                <strong style={{ fontSize: '0.875rem' }}>{cap.name}</strong>
-                <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
+                <strong style={{ fontSize: '0.85rem', display: 'block' }} className="text-break">{cap.name}</strong>
+                <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '0.2rem' }}>
                   {cap.category} • <span style={{ color: '#06b6d4' }}>{cap.proficiencyLevel}</span>
                 </div>
               </div>
@@ -124,8 +124,8 @@ export const ProfilePage: React.FC = () => {
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
             {profile.certifications?.map((cert, idx) => (
               <div key={idx} style={{ padding: '0.75rem', borderRadius: 'var(--radius-sm)', background: 'rgba(16, 185, 129, 0.05)', border: '1px solid rgba(16, 185, 129, 0.2)' }}>
-                <strong style={{ fontSize: '0.875rem', color: '#34d399' }}>{cert.certType}</strong>
-                <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
+                <strong style={{ fontSize: '0.85rem', color: '#34d399', display: 'block' }} className="text-break">{cert.certType}</strong>
+                <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '0.2rem' }} className="text-break">
                   Issued by: {cert.issuingBody || 'Accredited Body'} • No: {cert.certNumber || 'Active'}
                 </div>
               </div>
@@ -134,7 +134,7 @@ export const ProfilePage: React.FC = () => {
         </div>
 
         {/* Document Vault */}
-        <div className="glass-panel" style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+        <div className="glass-panel" style={{ padding: '1.25rem', display: 'flex', flexDirection: 'column', gap: '1rem', width: '100%' }}>
           <h3 style={{ fontSize: '1.1rem', fontWeight: 700 }}>Encrypted Evidence Vault</h3>
           <p style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>
             Uploaded files used for compliance checklist verification and GFR 161(iv) exemptions.
@@ -150,15 +150,16 @@ export const ProfilePage: React.FC = () => {
               color: statusMessage.type === 'success' ? '#34d399' : '#fb7185',
               display: 'flex',
               justifyContent: 'space-between',
-              alignItems: 'center'
+              alignItems: 'center',
+              gap: '0.5rem'
             }}>
-              <span>{statusMessage.text}</span>
-              <button onClick={() => setStatusMessage(null)} style={{ background: 'transparent', border: 'none', color: 'inherit', cursor: 'pointer' }}>✕</button>
+              <span className="text-break">{statusMessage.text}</span>
+              <button onClick={() => setStatusMessage(null)} style={{ background: 'transparent', border: 'none', color: 'inherit', cursor: 'pointer', flexShrink: 0 }}>✕</button>
             </div>
           )}
 
           {/* Upload Form */}
-          <form onSubmit={handleFileUpload} style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', padding: '1rem', background: 'rgba(0, 0, 0, 0.2)', borderRadius: 'var(--radius-md)' }}>
+          <form onSubmit={handleFileUpload} style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', padding: '1rem', background: 'rgba(0, 0, 0, 0.2)', borderRadius: 'var(--radius-md)', width: '100%' }}>
             <div>
               <label className="form-label">Document Classification</label>
               <select className="form-input" value={uploadType} onChange={(e) => setUploadType(e.target.value)}>
@@ -178,6 +179,7 @@ export const ProfilePage: React.FC = () => {
                 type="file"
                 accept=".pdf,application/pdf"
                 className="form-input"
+                style={{ width: '100%', boxSizing: 'border-box' }}
                 onChange={(e) => {
                   if (e.target.files && e.target.files[0]) {
                     setUploadFile(e.target.files[0]);
@@ -187,14 +189,15 @@ export const ProfilePage: React.FC = () => {
               />
               {uploadFile && (
                 <div style={{ marginTop: '0.35rem', fontSize: '0.75rem', color: '#34d399', display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-                  <CheckCircle2 size={13} /> Selected: <strong>{uploadFile.name}</strong> ({(uploadFile.size / 1024).toFixed(1)} KB)
+                  <CheckCircle2 size={13} style={{ flexShrink: 0 }} />
+                  <span className="text-break">Selected: <strong>{uploadFile.name}</strong> ({(uploadFile.size / 1024).toFixed(1)} KB)</span>
                 </div>
               )}
             </div>
 
             {/* Quick Demo Templates */}
-            <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginTop: '0.25rem' }}>
-              <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)', alignSelf: 'center' }}>Quick demo files:</span>
+            <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap', marginTop: '0.25rem' }}>
+              <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)', alignSelf: 'center' }}>Quick demo:</span>
               <button
                 type="button"
                 onClick={() => handleUseSampleFile('ISO_CERTIFICATE', 'ISO_9001_QMS_Certificate.pdf')}
@@ -217,24 +220,38 @@ export const ProfilePage: React.FC = () => {
               type="submit"
               disabled={!uploadFile || uploading}
               className="btn btn-primary animate-glow"
-              style={{ fontSize: '0.8125rem', marginTop: '0.5rem' }}
+              style={{ fontSize: '0.8125rem', marginTop: '0.5rem', width: '100%' }}
             >
               <Upload size={14} /> {uploading ? 'Uploading...' : 'Upload to Secure Vault'}
             </button>
           </form>
 
           {/* Uploaded List */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', width: '100%' }}>
             <h4 style={{ fontSize: '0.8125rem', color: 'var(--text-muted)', textTransform: 'uppercase', marginTop: '0.5rem' }}>
               Current Verified Documents ({documents.length})
             </h4>
             {documents.map((doc) => (
-              <div key={doc.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0.75rem', borderRadius: 'var(--radius-sm)', background: 'rgba(255, 255, 255, 0.02)', border: '1px solid var(--border-subtle)' }}>
-                <div>
-                  <strong style={{ fontSize: '0.8125rem' }}>{doc.fileName}</strong>
-                  <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>{doc.docType}</div>
+              <div
+                key={doc.id}
+                style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  padding: '0.75rem',
+                  borderRadius: 'var(--radius-sm)',
+                  background: 'rgba(255, 255, 255, 0.02)',
+                  border: '1px solid var(--border-subtle)',
+                  gap: '0.5rem',
+                  minWidth: 0,
+                  width: '100%'
+                }}
+              >
+                <div style={{ minWidth: 0, flex: 1 }}>
+                  <strong style={{ fontSize: '0.8125rem', display: 'block', wordBreak: 'break-all' }}>{doc.fileName}</strong>
+                  <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)', marginTop: '0.15rem' }}>{doc.docType}</div>
                 </div>
-                <span className="badge badge-pass" style={{ fontSize: '0.65rem' }}>Verified</span>
+                <span className="badge badge-pass" style={{ fontSize: '0.65rem', flexShrink: 0 }}>Verified</span>
               </div>
             ))}
           </div>

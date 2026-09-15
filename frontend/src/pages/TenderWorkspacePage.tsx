@@ -193,38 +193,38 @@ export const TenderWorkspacePage: React.FC = () => {
   const complianceReadiness = complianceItems.length > 0 ? Math.round((readyCount / complianceItems.length) * 100) : 0;
 
   return (
-    <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '1.5rem 1rem', display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+    <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0.5rem 0', display: 'flex', flexDirection: 'column', gap: '1.25rem', width: '100%' }}>
       {/* Top Header Card */}
-      <div className="glass-panel" style={{ padding: '1.75rem' }}>
+      <div className="glass-panel" style={{ padding: '1.5rem', width: '100%' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1rem' }}>
-          <div>
+          <div style={{ minWidth: 0, flex: 1 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
               <span className="badge badge-info">{tender.category}</span>
-              <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontFamily: 'monospace' }}>
+              <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontFamily: 'monospace' }} className="text-break">
                 {tender.tenderRefNo}
               </span>
               <span className="badge" style={{ background: 'rgba(255, 255, 255, 0.05)', color: 'var(--text-secondary)' }}>
                 {tender.sourcePortal}
               </span>
             </div>
-            <h1 style={{ fontSize: '1.5rem', fontWeight: 800, marginTop: '0.5rem', lineHeight: '1.3' }}>
+            <h1 style={{ fontSize: '1.4rem', fontWeight: 800, marginTop: '0.5rem', lineHeight: '1.3' }} className="text-break">
               {tender.title}
             </h1>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '0.35rem', color: 'var(--text-secondary)', fontSize: '0.8125rem' }}>
-              <Building2 size={14} />
-              <span>{tender.department} • {tender.authority || 'Directorate'}</span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '0.35rem', color: 'var(--text-secondary)', fontSize: '0.8125rem', flexWrap: 'wrap' }}>
+              <Building2 size={14} style={{ flexShrink: 0 }} />
+              <span className="text-break">{tender.department} • {tender.authority || 'Directorate'}</span>
             </div>
           </div>
 
-          <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
+          <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center', flexWrap: 'wrap' }}>
             <button
               onClick={handleRunAnalysis}
               disabled={analyzing}
               className="btn btn-primary animate-glow"
-              style={{ padding: '0.625rem 1.25rem' }}
+              style={{ padding: '0.5rem 1rem', fontSize: '0.85rem' }}
             >
-              <Play size={16} />
-              {analyzing ? 'Extracting & Evaluating...' : 'Analyse Tender'}
+              <Play size={15} />
+              {analyzing ? 'Extracting...' : 'Analyse Tender'}
             </button>
 
             {tender.sourceUrl && (
@@ -233,10 +233,10 @@ export const TenderWorkspacePage: React.FC = () => {
                 target="_blank"
                 rel="noreferrer"
                 className="btn btn-secondary"
-                style={{ padding: '0.625rem' }}
+                style={{ padding: '0.5rem 0.65rem' }}
                 title="View Official Portal Source"
               >
-                <ExternalLink size={16} />
+                <ExternalLink size={15} />
               </a>
             )}
           </div>
@@ -246,7 +246,7 @@ export const TenderWorkspacePage: React.FC = () => {
         {analyzing && (
           <div style={{ marginTop: '1.25rem' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', color: '#06b6d4', fontWeight: 600, marginBottom: '0.35rem' }}>
-              <span>Running deterministic eligibility & requirement extraction pipeline...</span>
+              <span>Running deterministic eligibility pipeline...</span>
               <span>{analysisProgress}%</span>
             </div>
             <div style={{ width: '100%', height: '6px', background: 'rgba(255, 255, 255, 0.1)', borderRadius: '3px', overflow: 'hidden' }}>
@@ -271,12 +271,13 @@ export const TenderWorkspacePage: React.FC = () => {
             fontSize: '0.8125rem',
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'space-between'
+            justifyContent: 'space-between',
+            gap: '0.5rem'
           }}>
-            <span><strong>Analysis Notice:</strong> {analysisError}</span>
+            <span className="text-break"><strong>Analysis Notice:</strong> {analysisError}</span>
             <button
               onClick={() => setAnalysisError(null)}
-              style={{ background: 'transparent', border: 'none', color: '#fb7185', cursor: 'pointer', fontWeight: 'bold' }}
+              style={{ background: 'transparent', border: 'none', color: '#fb7185', cursor: 'pointer', fontWeight: 'bold', flexShrink: 0 }}
             >
               ✕
             </button>
@@ -286,7 +287,7 @@ export const TenderWorkspacePage: React.FC = () => {
         {/* Intelligence Ribbon */}
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 140px), 1fr))',
           gap: '1rem',
           marginTop: '1.5rem',
           paddingTop: '1.25rem',
@@ -302,12 +303,12 @@ export const TenderWorkspacePage: React.FC = () => {
           </div>
 
           <div>
-            <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)', textTransform: 'uppercase' }}>Deterministic Eligibility</span>
+            <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)', textTransform: 'uppercase' }}>Eligibility</span>
             <div style={{ marginTop: '0.15rem' }}>
               {overallScore >= 75 ? (
                 <span className="badge badge-pass"><CheckCircle2 size={12} /> PASS (GFR 161-IV)</span>
               ) : (overallScore >= 50 ? (
-                <span className="badge badge-review"><AlertTriangle size={12} /> NEEDS REVIEW</span>
+                <span className="badge badge-review"><AlertTriangle size={12} /> REVIEW</span>
               ) : (
                 <span className="badge badge-fail"><XCircle size={12} /> FAIL</span>
               ))}
@@ -315,7 +316,7 @@ export const TenderWorkspacePage: React.FC = () => {
           </div>
 
           <div>
-            <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)', textTransform: 'uppercase' }}>Compliance Readiness</span>
+            <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)', textTransform: 'uppercase' }}>Readiness</span>
             <div style={{ marginTop: '0.15rem' }}>
               <strong style={{ fontSize: '1.25rem', color: complianceReadiness >= 75 ? '#34d399' : (complianceReadiness >= 50 ? '#fbbf24' : '#fb7185') }}>
                 {complianceReadiness}% Ready
@@ -325,7 +326,7 @@ export const TenderWorkspacePage: React.FC = () => {
 
           <div>
             <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)', textTransform: 'uppercase' }}>Closing Date</span>
-            <div style={{ marginTop: '0.15rem', fontWeight: 600, color: '#fbbf24' }}>
+            <div style={{ marginTop: '0.15rem', fontWeight: 600, color: '#fbbf24', fontSize: '0.9rem' }}>
               {new Date(tender.closingDate).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}
             </div>
           </div>
@@ -527,7 +528,7 @@ export const TenderWorkspacePage: React.FC = () => {
                   {item.result === 'FAIL' && <span className="badge badge-fail"><XCircle size={12} /> FAIL</span>}
                 </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.5rem', fontSize: '0.75rem', background: 'rgba(0, 0, 0, 0.2)', padding: '0.5rem 0.75rem', borderRadius: 'var(--radius-sm)' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 200px), 1fr))', gap: '0.5rem', fontSize: '0.75rem', background: 'rgba(0, 0, 0, 0.2)', padding: '0.5rem 0.75rem', borderRadius: 'var(--radius-sm)' }}>
                   <div><span style={{ color: 'var(--text-muted)' }}>Tender Requirement:</span> <strong>{item.tenderValue}</strong></div>
                   <div><span style={{ color: 'var(--text-muted)' }}>Startup Credential:</span> <strong>{item.startupValue}</strong></div>
                 </div>
@@ -537,9 +538,9 @@ export const TenderWorkspacePage: React.FC = () => {
                 </div>
 
                 {item.appliedRuleCode && (
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', fontSize: '0.75rem', color: '#06b6d4', fontWeight: 600 }}>
-                    <ShieldCheck size={14} />
-                    Applied Relaxation: {item.appliedRuleCode} (Exemption from Prior Turnover & Experience)
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', fontSize: '0.75rem', color: '#06b6d4', fontWeight: 600, flexWrap: 'wrap' }}>
+                    <ShieldCheck size={14} style={{ flexShrink: 0 }} />
+                    <span>Applied Relaxation: {item.appliedRuleCode} (Exemption from Prior Turnover & Experience)</span>
                   </div>
                 )}
               </div>
@@ -558,7 +559,7 @@ export const TenderWorkspacePage: React.FC = () => {
             </p>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '1rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 150px), 1fr))', gap: '1rem' }}>
             <div style={{ padding: '1rem', borderRadius: 'var(--radius-md)', background: 'rgba(99, 102, 241, 0.1)', border: '1px solid rgba(99, 102, 241, 0.3)' }}>
               <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Technical (40%)</div>
               <div style={{ fontSize: '1.5rem', fontWeight: 800, color: '#818cf8' }}>{match?.technicalScore ?? 0}%</div>
@@ -566,7 +567,7 @@ export const TenderWorkspacePage: React.FC = () => {
             </div>
 
             <div style={{ padding: '1rem', borderRadius: 'var(--radius-md)', background: 'rgba(6, 182, 212, 0.1)', border: '1px solid rgba(6, 182, 212, 0.3)' }}>
-              <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Sector Relevance (25%)</div>
+              <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Sector (25%)</div>
               <div style={{ fontSize: '1.5rem', fontWeight: 800, color: '#06b6d4' }}>{match?.sectorScore ?? 0}%</div>
               <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)' }}>Industry sector alignment</div>
             </div>
@@ -578,7 +579,7 @@ export const TenderWorkspacePage: React.FC = () => {
             </div>
 
             <div style={{ padding: '1rem', borderRadius: 'var(--radius-md)', background: 'rgba(245, 158, 11, 0.1)', border: '1px solid rgba(245, 158, 11, 0.3)' }}>
-              <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Document Readiness (10%)</div>
+              <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Documents (10%)</div>
               <div style={{ fontSize: '1.5rem', fontWeight: 800, color: '#f59e0b' }}>{match?.readinessScore ?? 0}%</div>
               <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)' }}>Statutory Vault Documents</div>
             </div>
@@ -586,7 +587,7 @@ export const TenderWorkspacePage: React.FC = () => {
             <div style={{ padding: '1rem', borderRadius: 'var(--radius-md)', background: 'rgba(244, 63, 94, 0.1)', border: '1px solid rgba(244, 63, 94, 0.3)' }}>
               <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Opportunity Fit (5%)</div>
               <div style={{ fontSize: '1.5rem', fontWeight: 800, color: '#fb7185' }}>{match?.fitScore ?? 0}%</div>
-              <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)' }}>DPIIT & EMD Exemption Benefit</div>
+              <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)' }}>DPIIT & EMD Exemption</div>
             </div>
           </div>
 
@@ -604,7 +605,7 @@ export const TenderWorkspacePage: React.FC = () => {
         <div className="glass-panel animate-fade-in" style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
           <h3 style={{ fontSize: '1.1rem', fontWeight: 700 }}>Gap Analysis & Risk Matrix</h3>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))', gap: '1rem' }}>
             <div style={{ padding: '1rem', borderRadius: 'var(--radius-md)', background: 'rgba(16, 185, 129, 0.05)', border: '1px solid rgba(16, 185, 129, 0.2)' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', color: '#10b981', fontWeight: 700, fontSize: '0.875rem' }}>
                 <CheckCircle2 size={16} /> Verified Strengths (Ready)
@@ -948,13 +949,15 @@ export const TenderWorkspacePage: React.FC = () => {
                 key={idx}
                 style={{
                   alignSelf: msg.role === 'USER' ? 'flex-end' : 'flex-start',
-                  maxWidth: '85%',
-                  padding: '0.875rem 1.1rem',
+                  maxWidth: '92%',
+                  padding: '0.75rem 1rem',
                   borderRadius: 'var(--radius-md)',
                   background: msg.role === 'USER' ? 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)' : 'rgba(30, 41, 59, 0.9)',
                   border: '1px solid ' + (msg.role === 'USER' ? 'transparent' : 'var(--border-subtle)'),
-                  fontSize: '0.875rem',
-                  lineHeight: '1.5'
+                  fontSize: '0.85rem',
+                  lineHeight: '1.5',
+                  overflowWrap: 'anywhere',
+                  wordBreak: 'break-word'
                 }}
               >
                 <div>{msg.content}</div>
@@ -967,7 +970,7 @@ export const TenderWorkspacePage: React.FC = () => {
                     {msg.citations.map((c, cIdx) => (
                       <div key={cIdx} style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '0.25rem' }}>
                         📍 <strong>Page {c.page}</strong> • {c.section}
-                        <div style={{ fontStyle: 'italic', background: 'rgba(0, 0, 0, 0.2)', padding: '0.35rem', borderRadius: '4px', marginTop: '0.2rem' }}>
+                        <div style={{ fontStyle: 'italic', background: 'rgba(0, 0, 0, 0.2)', padding: '0.35rem', borderRadius: '4px', marginTop: '0.2rem', wordBreak: 'break-word' }}>
                           "{c.snippet}"
                         </div>
                       </div>
